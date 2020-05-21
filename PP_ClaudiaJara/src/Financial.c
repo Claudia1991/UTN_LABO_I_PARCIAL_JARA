@@ -36,8 +36,7 @@ int main(void) {
 			PayLoan(loans, SIZE_ARRAY_LOANS, clients, SIZE_ARRAY_CLIENTS);
 			break;
 		case RESUME_LOAN:
-			ResumeLoan(loans, SIZE_ARRAY_LOANS, clients,
-			SIZE_ARRAY_CLIENTS);
+			ResumeLoan(loans, SIZE_ARRAY_LOANS, clients, SIZE_ARRAY_CLIENTS);
 			break;
 		case SHOW_CLIENTS:
 			ShowClientsAndActivesLoans(clients, SIZE_ARRAY_CLIENTS, loans,
@@ -45,7 +44,7 @@ int main(void) {
 			break;
 		case SHOW_LOANS:
 			ShowLoansWithCuilClient(loans, SIZE_ARRAY_LOANS, clients,
-			SIZE_ARRAY_CLIENTS);
+					SIZE_ARRAY_CLIENTS);
 			break;
 		case REPORTS_CLIENTS:
 			if (!IsEmptyClientArray(clients, SIZE_ARRAY_CLIENTS)) {
@@ -57,6 +56,10 @@ int main(void) {
 						break;
 					case CLIENT_MORE_ACTIVE_PAYED:
 						ShowClientWithMorePayedLoans(loans,
+						SIZE_ARRAY_LOANS, clients, SIZE_ARRAY_CLIENTS);
+						break;
+					case CLIENT_MORE_LOANS:
+						ShowClientWithMoreLoans(loans,
 						SIZE_ARRAY_LOANS, clients, SIZE_ARRAY_CLIENTS);
 						break;
 					}
@@ -77,6 +80,12 @@ int main(void) {
 					case LOANS_BY_IMPORT:
 						ShowLoansUpperByAmount(loans, SIZE_ARRAY_LOANS);
 						break;
+					case LOANS_PAID_OUT:
+						ShowLoansByFeeAndState(loans, SIZE_ARRAY_LOANS);
+						break;
+					case LOANS_BY_QUANTITY_FEE:
+						ShowLoansByFee(loans, SIZE_ARRAY_LOANS);
+						break;
 					}
 					GetCaracter(&respuesta, "Quiere ver otro informe? s - n: ",
 							"ERROR: ingrese s o n: ", 'n', 's', RETRIES);
@@ -86,7 +95,7 @@ int main(void) {
 			}
 			break;
 		case EXIT:
-			printf("---*** FIN EMPRESA MARKETING ***---\n");
+			printf("---*** FIN EMPRESA FINANCIERA ***---\n");
 			exit(0);
 			break;
 		}

@@ -139,6 +139,17 @@ int GetActivesLoansByIdClient(eLoan loanArray[], int size, int idClient, int sta
  * \return int Return the id of the client with more loans active o paid out
  * */
 int GetClientIdWihtMoreLoansByState(eClient clientArray[], int sizeClient,eLoan loanArray[], int size, int state);
+
+/*
+ * \brief Get the id of the client with more loans active o paid out.
+ * \param arrayClient Array of clients
+ * \param sizeClient Array of clients length
+ * \param loanArray Array of loan
+ * \param size Array of loan length
+ * \param state The state of the loan to search
+ * \return int Return the id of the client with more loans active o paid out
+ * */
+int GetClientIdWihtMoreLoans(eClient clientArray[], int sizeClient,eLoan loanArray[], int size);
 /*
  * \brief Get the quantity of loans by criteria.
  * \param loanArray Array of loan
@@ -148,6 +159,16 @@ int GetClientIdWihtMoreLoansByState(eClient clientArray[], int sizeClient,eLoan 
  * \return int Return the quantity of loans by criteria
  * */
 int QuantityLoansUpper(eLoan loanArray[], int size, int useDefaultMin, float amount);
+
+/*
+ * \brief Get the quantity of loans by fees.
+ * \param loanArray Array of loan
+ * \param size Array length
+ * \param useDefaultMin Indicates if use the default criteria amount
+ * \param amount The total loan amount
+ * \return int Return the quantity of loans by criteria
+ * */
+int QuantityLoansByFees(eLoan loanArray[], int size, int fees,int state);
 
 
 

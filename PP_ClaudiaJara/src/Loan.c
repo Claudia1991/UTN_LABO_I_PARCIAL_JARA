@@ -86,7 +86,7 @@ void PayLoan(eLoan loanArray[], int size, eClient clientArray[], int sizeClient)
 					"ERROR: ingrese s - n\n", 'n', 's', RETRIES);
 			if (response == 's') {
 				printf("Realizando el pago...\n");
-				ChangeState(loanArray,indexLoan, 0);
+				ChangeState(loanArray, indexLoan, 0);
 				printf("Se realizo el pago.\n");
 			} else {
 				printf("Cancelando el pago.\n");
@@ -98,7 +98,7 @@ void PayLoan(eLoan loanArray[], int size, eClient clientArray[], int sizeClient)
 	}
 }
 
-void ChangeState(eLoan loanArray[],int index, int state) {
+void ChangeState(eLoan loanArray[], int index, int state) {
 	if (state) {
 		strcpy(loanArray[index].state, STATE_ACTIVE);
 	} else {
@@ -133,7 +133,7 @@ void ResumeLoan(eLoan loanArray[], int size, eClient clientArray[],
 					"ERROR: ingrese s - n\n", 'n', 's', RETRIES);
 			if (response == 's') {
 				printf("Reanudando el pago...\n");
-				ChangeState(loanArray,indexLoan, 1);
+				ChangeState(loanArray, indexLoan, 1);
 				printf("Se reanudo el pago.\n");
 			} else {
 				printf("Cancelando la reanudacion del pago.\n");
@@ -154,13 +154,11 @@ void ShowLoanArray(eLoan loanArray[], int size) {
 				ShowLoan(loanArray[i]);
 			}
 		}
-
 	}
-
 }
 void ShowLoan(eLoan loan) {
-	printf("Id: %d - Importe: %f - Cuotas: %d\n", loan.id, loan.amount,
-			loan.fees);
+	printf("Id: %d - Importe: %f - Cuotas: %d - Estado: %s\n", loan.id,
+			loan.amount, loan.fees, loan.state);
 }
 
 //Genericas
@@ -284,6 +282,39 @@ int GetClientIdWihtMoreLoansByState(eClient clientArray[], int sizeClient,
 	return status;
 }
 
+int GetClientIdWihtMoreLoans(eClient clientArray[], int sizeClient,
+		eLoan loanArray[], int size) {
+	//Busco todos los prestamos de los clientes, activos o no
+	int status = ERROR;
+	int idClient;
+	int maxQuantityLoans;
+	int totalLoans;
+	int quantityLoansActive;
+	int quantityLoansPaid;
+	if (loanArray != NULL && size > 0 && clientArray != NULL
+			&& sizeClient > 0) {
+		for (int i = 0; i < size; i++) {
+			if (clientArray[i].isEmpty == NO_EMPTY) {
+				//busco los activos
+				quantityLoansActive = GetActivesLoansByIdClient(loanArray, size,
+						clientArray[i].id, 1);
+				//busco los saldados
+				quantityLoansPaid = GetActivesLoansByIdClient(loanArray, size,
+						clientArray[i].id, 0);
+				//total
+				totalLoans = quantityLoansActive + quantityLoansPaid;
+			}
+			//busco maximo
+			if (maxQuantityLoans < totalLoans || i == 0) {
+				idClient = clientArray[i].id;
+				maxQuantityLoans = totalLoans;
+			}
+		}
+		status = idClient;
+	}
+	return status;
+}
+
 int QuantityLoansUpper(eLoan loanArray[], int size, int useDefaultMin,
 		float amount) {
 	int status = ERROR;
@@ -304,6 +335,35 @@ int QuantityLoansUpper(eLoan loanArray[], int size, int useDefaultMin,
 			for (int i = 0; i < size; i++) {
 				if (loanArray[i].isEmpty == NO_EMPTY) {
 					if (loanArray[i].amount == currentAmount) {
+						quantity++;
+					}
+				}
+			}
+		}
+		status = quantity;
+	}
+	return status;
+}
+
+int QuantityLoansByFees(eLoan loanArray[], int size, int fees, int state) {
+	int status = ERROR;
+	int quantity = 0;
+	float currentFees;
+	if (loanArray != NULL && size > 0) {
+		if (state) {
+			currentFees = fees;
+			for (int i = 0; i < size; i++) {
+				if (loanArray[i].isEmpty == NO_EMPTY) {
+					if (loanArray[i].fees == currentFees && strcmp(loanArray[i].state, STATE_ACTIVE)==0) {
+						quantity++;
+					}
+				}
+			}
+		} else {
+			currentFees = 12;
+			for (int i = 0; i < size; i++) {
+				if (loanArray[i].isEmpty == NO_EMPTY) {
+					if (loanArray[i].fees == currentFees && strcmp(loanArray[i].state, STATE_PAYED)==0) {
 						quantity++;
 					}
 				}
