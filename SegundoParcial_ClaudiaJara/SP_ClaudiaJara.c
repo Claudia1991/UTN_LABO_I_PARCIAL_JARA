@@ -1,10 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "parser.h"
-#include "Item.h"
-#include "LinkedList.h"
-#include "defines.h"
 #include "Controller.h"
 #include "Menu.h"
 
@@ -38,7 +34,6 @@ int main() {
 			printf("::::::::::: FIN DISTRIBUIDORA :::::::::::\n");
 			exit(EXIT_SUCCESS);
 			break;
-
 		}
 	} while (1);
 	return EXIT_SUCCESS;
