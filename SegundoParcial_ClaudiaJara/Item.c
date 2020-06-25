@@ -181,7 +181,7 @@ void item_DoDiscount(void *itemOne) {
 				}
 				break;
 			case ID_SECTION_CLEAN:
-				if (price >= 200) {
+				if (price <= 200) {
 					discount = price - (price * 0.1);
 					item_setPrice(auxItem, discount);
 				}
@@ -210,6 +210,34 @@ int item_getSectionDescriptionByIdSection(int idSection, char *description) {
 			break;
 		}
 		status = OK;
+	}
+	return status;
+}
+
+int item_isPriceUpperToAhundred(void *itemOne) {
+	int status = 0;
+	if (itemOne != NULL) {
+		float price;
+		eItem *auxItem = (eItem*) itemOne;
+		if (!item_getPrice(auxItem, &price)) {
+			if (price > 100) {
+				status = 1;
+			}
+		}
+	}
+	return status;
+}
+
+int item_isSectorOne(void *itemOne) {
+	int status = 0;
+	if (itemOne != NULL) {
+		int idSection;
+		eItem *auxItem = (eItem*) itemOne;
+		if (!item_getIdSection(auxItem, &idSection)) {
+			if (idSection == ID_SECTION_CLOTHES) {
+				status = 1;
+			}
+		}
 	}
 	return status;
 }

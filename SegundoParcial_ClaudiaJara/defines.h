@@ -13,13 +13,14 @@
 #define SHOW 3
 #define	DO_DISCOUNT 4
 #define DO_FILE 5
-#define EXIT 6
+#define REPORTS 6
+#define EXIT 7
 
 #define HAS_HEADER 1
 #define HEADER "id,articulo,medida,precio,rubroId\n"
 #define SOURCE_DATA "mapeado.csv"
 #define DATA_FORMAT "%[^,],%[^,],%[^,],%[^,],%[^\n]\n"
-#define DATA_FORMAT_SAVE "%d,%s,%s,%d,%d\n"
+#define DATA_FORMAT_SAVE "%d,%s,%s,%.2f,%d\n"
 
 #define ORDER_DESC 0
 #define ORDER_ASC 1

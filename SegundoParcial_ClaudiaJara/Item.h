@@ -177,5 +177,22 @@ int item_OrderListItemsByItem(void *itemOne, void *itemTwo);
  */
 void item_DoDiscount(void *itemOne);
 
+/** \brief Aplica el descuento
+ *
+ * \param void* itemOne Puntero al primer empleado a comparar.
+ * \return int Devuelve -1 si itemOne es NULL , sino devuelve 1 si se puedo aplicar el descuento
+ *
+ */
+int item_isPriceUpperToAhundred(void *itemOne);
+
+
+/** \brief Aplica el descuento
+ *
+ * \param void* itemOne Puntero al primer empleado a comparar.
+ * \return int Devuelve -1 si itemOne es NULL , sino devuelve 1 si se puedo aplicar el descuento
+ *
+ */
+int item_isSectorOne(void *itemOne);
+
 
 #endif // item_H_INCLUDED
